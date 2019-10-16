@@ -1,5 +1,7 @@
 package com.hechuangwu.datastructures.linkedlist;
 
+import java.util.Stack;
+
 /**
  * Created by cwh on 2019/10/15 0015.
  * 功能: 单向链表
@@ -26,23 +28,41 @@ public class SingleLinkedListTest {
         singleLinkedList.addIndex( hero4 );
         singleLinkedList.addIndex( hero2 );
         singleLinkedList.addIndex( hero3 );
-        //显示元素
+
+
+        System.out.println("显示元素:");
         singleLinkedList.showList();
 
-        System.out.println();
-        //更新元素
+
+        System.out.println("更新元素:");
         HeroNode newHeroNode = new HeroNode(2, "小卢", "玉麒麟~~");
         singleLinkedList.update( newHeroNode );
         singleLinkedList.showList();
 
-        System.out.println();
-        //删除元素
+        System.out.println("链表反转：");
+        singleLinkedList.reverse();
+        singleLinkedList.showList();
+
+        System.out.println("打印反转：");
+        singleLinkedList.reversePrint();
+
+
+        System.out.println("角标删除元素:");
         singleLinkedList.remove( 3 );
         singleLinkedList.showList();
 
-        System.out.println();
+        System.out.println("节点删除元素：");
         singleLinkedList.remove( newHeroNode );
         singleLinkedList.showList();
+
+        System.out.println("链表有效个数:");
+        System.out.println( singleLinkedList.size() );
+
+        System.out.println("根据角标倒数查找：");
+        HeroNode lastIndexNode = singleLinkedList.findLastIndexNode( 1 );
+        System.out.println(lastIndexNode);
+
+
 
     }
 
@@ -52,10 +72,6 @@ public class SingleLinkedListTest {
 class SingleLinkedList {
     private HeroNode head = new HeroNode( 0, "", "" );
     private HeroNode temp;
-
-    public HeroNode getHead() {
-        return head;
-    }
 
     /**
      *尾插法
@@ -82,16 +98,16 @@ class SingleLinkedList {
                 break;
             }
 
-            if (temp.index == heroNode.index) {
+            if (temp.number == heroNode.number) {
                 exist = true;
                 break;
-            } else if (temp.next.index > heroNode.index) {
+            } else if (temp.next.number > heroNode.number) {
                 break;
             }
             temp = temp.next;
         }
         if (exist) {
-            System.out.printf( "准备插入的英雄的编号 %d 已经存在了, 不能加入\n", heroNode.index );
+            System.out.printf( "准备插入的英雄的编号 %d 已经存在了, 不能加入\n", heroNode.number );
             return;
         }
         heroNode.next = temp.next;
@@ -114,7 +130,7 @@ class SingleLinkedList {
             if(temp.next==null){
                 break;
             }
-            if(temp.next.index==heroNode.index){
+            if(temp.next.number==heroNode.number){
                 exit = true;
                 break;
             }
@@ -122,7 +138,7 @@ class SingleLinkedList {
         }
 
         if(!exit){
-            System.out.printf("没有找到 编号 %d 的节点，不能修改\n", heroNode.index);
+            System.out.printf("没有找到 编号 %d 的节点，不能修改\n", heroNode.number);
             return;
         }
         heroNode.next = temp.next.next;
@@ -139,7 +155,7 @@ class SingleLinkedList {
             if(temp.next==null){
                 break;
             }
-            if(temp.next.index==heroNode.index){
+            if(temp.next.number==heroNode.number){
                 exit = true;
                 break;
             }
@@ -147,12 +163,14 @@ class SingleLinkedList {
         }
 
         if(!exit){
-            System.out.printf("没有找到 编号 %d 的节点\n", heroNode.index);
+            System.out.printf("没有找到 编号 %d 的节点\n", heroNode.number);
             return;
         }
         temp.next = temp.next.next;
     }
-
+    /**
+     * 根据角标删除
+     */
     public void remove(int index){
         temp = head;
         boolean exit = false;
@@ -160,7 +178,7 @@ class SingleLinkedList {
             if(temp.next==null){
                 break;
             }
-            if(temp.next.index==index){
+            if(temp.next.number==index){
                 exit = true;
                 break;
             }
@@ -175,6 +193,83 @@ class SingleLinkedList {
     }
 
     /**
+     * @return 有效个数
+     */
+    public int size(){
+        int length = 0;
+        if(head.next==null){
+            return length;
+        }
+        temp = head.next;
+        while (temp!=null){
+            length++;
+            temp = temp.next;
+        }
+        return length;
+    }
+
+    /**
+     * 角标倒数查找元素
+     * @param index 角标
+     * @return 元素
+     */
+    public HeroNode findLastIndexNode(int index){
+        if(head.next==null){
+            return null;
+        }
+        int size = size();
+        if(index<0||index>=size){
+            return null;
+        }
+        HeroNode indexNode = head.next;
+        for (int i = 0; i < size-1-index; i++) {
+            indexNode = indexNode.next;
+        }
+        return indexNode;
+    }
+
+    /**
+     * 改变原有顺序，反转链表
+     */
+    public void reverse(){
+        if(head.next==null||head.next.next==null){
+            return;
+        }
+        HeroNode reverseHead = new HeroNode( 0, "", "" );//新的链表头
+        HeroNode next = null;
+        temp = head.next;
+        while (temp!=null){
+            next = temp.next;//先保存下一个节点，移动时使用，否则遍历就断开了
+            temp.next = reverseHead.next;//当前要取出的节点指向第一个节点
+            reverseHead.next = temp;//头节点指向当前节点
+            temp = next;//移动到原链表下个节点
+        }
+        head = reverseHead;
+    }
+
+    /**
+     * 不改变原有顺序，反转链表显示
+     */
+
+    public void reversePrint(){
+        if(head.next==null||head.next.next==null){
+            return;
+        }
+
+        Stack<HeroNode> stack = new Stack<>();
+
+        temp = head.next;
+        while (temp!=null){
+            stack.push( temp );
+            temp = temp.next;
+        }
+
+       while (stack.size()>0){
+           System.out.println(stack.pop());
+       }
+    }
+
+    /**
      * 显示链表
      */
     public void showList() {
@@ -183,11 +278,8 @@ class SingleLinkedList {
             return;
         }
         temp = head.next;
-        while (true) {
+        while (temp != null) {
             //是否链表末端
-            if (temp == null) {
-                break;
-            }
             System.out.println( temp );
             temp = temp.next;
         }
@@ -199,13 +291,13 @@ class SingleLinkedList {
  * 节点
  */
 class HeroNode {
-    public int index;
-    public String name;
-    public String nickName;
-    public HeroNode next;
+    int number;
+    private String name;
+    private String nickName;
+    HeroNode next;
 
-    public HeroNode(int index, String name, String nickName) {
-        this.index = index;
+    HeroNode(int number, String name, String nickName) {
+        this.number = number;
         this.name = name;
         this.nickName = nickName;
     }
@@ -213,7 +305,7 @@ class HeroNode {
     @Override
     public String toString() {
         return "HeroNode{" +
-                "index=" + index +
+                "number=" + number +
                 ", name='" + name + '\'' +
                 ", nickName='" + nickName + '\'' +
                 '}';
