@@ -239,7 +239,7 @@ class SingleLinkedList {
         HeroNode next = null;
         temp = head.next;
         while (temp!=null){
-            next = temp.next;//先保存下一个节点，移动时使用，否则遍历就断开了
+            next = temp.next;//单向链表要先保存下一个节点，移动时使用
             temp.next = reverseHead.next;//当前要取出的节点指向第一个节点
             reverseHead.next = temp;//头节点指向当前节点
             temp = next;//移动到原链表下个节点
@@ -278,8 +278,8 @@ class SingleLinkedList {
             return;
         }
         temp = head.next;
+        //是否链表末端
         while (temp != null) {
-            //是否链表末端
             System.out.println( temp );
             temp = temp.next;
         }
