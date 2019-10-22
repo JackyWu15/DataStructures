@@ -1,4 +1,4 @@
-package com.hechuangwu.datastructures.linkedlist;
+package com.hechuangwu.datastructuresandalgorithm.datastructures.linkedlist;
 
 /**
  * Created by cwh on 2019/10/16 0016.

@@ -1,4 +1,4 @@
-package com.hechuangwu.datastructures.queue;
+package com.hechuangwu.datastructuresandalgorithm.datastructures.queue;
 
 import java.util.Scanner;
 

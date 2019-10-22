@@ -1,4 +1,4 @@
-package com.hechuangwu.datastructures;
+package com.hechuangwu.datastructuresandalgorithm;
 
 import org.junit.Test;
 

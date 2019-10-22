@@ -1,4 +1,4 @@
-package com.hechuangwu.datastructures.stack;
+package com.hechuangwu.datastructuresandalgorithm.datastructures.stack;
 
 import java.util.Scanner;
 

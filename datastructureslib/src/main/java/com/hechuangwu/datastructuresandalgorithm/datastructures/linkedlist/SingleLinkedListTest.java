@@ -1,4 +1,4 @@
-package com.hechuangwu.datastructures.linkedlist;
+package com.hechuangwu.datastructuresandalgorithm.datastructures.linkedlist;
 
 import java.util.Stack;
 

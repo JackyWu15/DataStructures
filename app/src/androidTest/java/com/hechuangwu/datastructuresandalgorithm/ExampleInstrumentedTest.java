@@ -1,4 +1,4 @@
-package com.hechuangwu.datastructures;
+package com.hechuangwu.datastructuresandalgorithm;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

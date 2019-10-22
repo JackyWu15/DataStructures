@@ -1,4 +1,4 @@
-package com.hechuangwu.datastructures.recursion;
+package com.hechuangwu.datastructuresandalgorithm.datastructures.recursion;
 
 /**
  * Created by cwh on 2019/10/17 0017.

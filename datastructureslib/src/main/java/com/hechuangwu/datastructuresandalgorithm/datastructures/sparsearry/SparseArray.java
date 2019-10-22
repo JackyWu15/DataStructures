@@ -1,4 +1,4 @@
-package com.hechuangwu.datastructures.sparsearry;
+package com.hechuangwu.datastructuresandalgorithm.datastructures.sparsearry;
 
 /**
  * Created by cwh on 2019/10/14 0014.
