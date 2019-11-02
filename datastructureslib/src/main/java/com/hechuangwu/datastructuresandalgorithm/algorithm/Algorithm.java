@@ -12,7 +12,7 @@ package com.hechuangwu.datastructuresandalgorithm.algorithm;
  * 5，基数排序：
  * 外部排序：数据量过大，借助外部存储排序，比如文件等
  *
- * 算法事件复杂度由小到大依次为：常数阶Ο(1)＜对数阶Ο(log2n)＜线性阶Ο(n)＜线性对数阶Ο(nlog2n)＜平方阶Ο(n2)＜立方阶Ο(n3)＜k次方阶Ο(nk) ＜指数阶Ο(2n)
+ * 算法时间复杂度由小到大依次为：常数阶Ο(1)＜对数阶Ο(log2n)＜线性阶Ο(n)＜线性对数阶Ο(nlog2n)＜平方阶Ο(n2)＜立方阶Ο(n3)＜k次方阶Ο(nk) ＜指数阶Ο(2n)
  *
  *
  * Created by cwh on 2019/10/17 0017.
