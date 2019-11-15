@@ -3,7 +3,7 @@ package com.hechuangwu.datastructuresandalgorithm.datastructures.tree;
 
 /**
  * Created by cwh on 2019/11/2 0002.
- * 功能:
+ * 功能: 二叉树排序树
  */
 public class BinaryTreeTest {
     public static void main(String[] args) {
@@ -15,14 +15,16 @@ public class BinaryTreeTest {
         HeroNode node4 = new HeroNode( 4, "林冲" );
         HeroNode node5 = new HeroNode( 5, "关胜" );
 
-        root.setLeft( node2 );
-        root.setRight( node3 );
-        node3.setRight( node4 );
-        node3.setLeft( node5 );
-        binaryTree.setRoot( root );
 
-//        System.out.println( "遍历" );
-//        binaryTree.preOrder();
+        binaryTree.add( root );
+        binaryTree.add( node2 );
+        binaryTree.add( node3 );
+        binaryTree.add( node4 );
+        binaryTree.add( node5 );
+
+
+        System.out.println( "遍历" );
+        binaryTree.preOrder();
 //        binaryTree.midOrder();
 //        binaryTree.postOrder();
 //        binaryTree.preOrderSearch( 4 );
@@ -32,14 +34,24 @@ public class BinaryTreeTest {
 //        binaryTree.preOrderSearch( 2 );
 
 
-        binaryTree.delete( 3 );
+//        binaryTree.delete( 3 );
 
-        binaryTree.postOrder();
+//        binaryTree.postOrder();
     }
 }
 
 class BinaryTree {
     private HeroNode root;
+
+
+    public void add(HeroNode node){
+        if(root == null) {
+            root = node;
+        } else {
+            root.add(node);
+        }
+    }
+
 
     public void setRoot(HeroNode root) {
         this.root = root;
@@ -154,12 +166,28 @@ class HeroNode {
         this.right = right;
     }
 
-    @Override
-    public String toString() {
-        return "HeroNode{" +
-                "number=" + number +
-                ", name='" + name + '\'' +
-                '}';
+
+    /**
+     *  添加节点
+     */
+    public void add(HeroNode node){
+        if(node==null){
+            return;
+        }
+
+        if(node.number<this.number){
+            if(this.left==null){
+                this.left = node;
+            }else {
+                this.left.add( node );
+            }
+        }else {
+            if(this.right == null) {
+                this.right = node;
+            } else {
+                this.right.add(node);
+            }
+        }
     }
 
     /**
@@ -277,9 +305,14 @@ class HeroNode {
         if(this.right!=null){
             this.right.delete( number );
         }
+    }
 
-
-
+    @Override
+    public String toString() {
+        return "HeroNode{" +
+                "number=" + number +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
 
