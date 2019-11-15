@@ -19,7 +19,7 @@ public class SortTest {
 //        }
         int[] arr2 = new int[1000000];//100w
         for (int i = 0; i < arr2.length; i++) {
-            arr2[i] = (int) (Math.random() * 8000000);
+            arr2[i] = (int) (Math.random() * 1000000);
         }
 
         //测试排序时间
@@ -33,12 +33,50 @@ public class SortTest {
         //以下100w时间测试
 //        shellSort( arr2 );//685毫秒
 //        mergeSort(arr2, 0, arr2.length - 1, new int[arr2.length]);//273毫秒
-        quickSort(arr2, 0, arr2.length-1);//203毫秒
+//        quickSort(arr2, 0, arr2.length-1);//203毫秒
 //        radixSort( arr2 );//165毫秒，不能排负数,海量数据内存溢出
+        heapSort( arr2 );//180毫秒
         System.out.println( System.currentTimeMillis() );
 
     }
 
+    /**
+     * 堆排序，以二叉树原理来遍历排序
+     */
+    public static void heapSort(int[] array){
+        int temp = 0;
+        for (int i = array.length/2-1; i >=0 ; i--) {
+            bigTopTree( array,i,array.length );
+        }
+        for (int j = array.length-1; j >0; j--) {
+            temp = array[j];
+            array[j] = array[0];
+            array[0] = temp;
+            bigTopTree(array, 0, j);
+        }
+    }
+
+    /**
+     * 从非子叶节点开始交换，构成大顶堆二叉树，降序则用小顶堆
+     */
+    public static void bigTopTree(int[] array, int i, int length) {
+        int temp = array[i];
+        //j是i节点的左子节点
+        for (int j = i * 2 + 1; j < length; j = j * 2 + 1) {
+            //左子节点小于右子节点
+            if (j + 1 < length && array[j] < array[j + 1]) {
+                j++;//指向右子节点
+            }
+            //子节点大于父节点
+            if (array[j] > temp) {
+                array[i] = array[j];
+                i = j;
+            } else {
+                break;
+            }
+            array[i] = temp;
+        }
+    }
     /**
      * 基数排序：通过位数进行分类，再重拍，经典的空间换时间方式，需要开辟多个数值，所以占用内存很大，海量数据排序时，容易造成 OutOfMemoryError
      */
